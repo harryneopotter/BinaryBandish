@@ -14,7 +14,13 @@ const SEED_VIDEO_ID = "jm-HpLfQRmE"; // <- from your link
 const MAX_RESULTS = 12;
 
 async function yt(url) {
-  const res = await fetch(url);
+  // Adding a Referer header helps bypass restrictions if the API key is 
+  // limited to specific domains (like github.io).
+  const res = await fetch(url, {
+    headers: {
+      "Referer": "https://thebinarybandish.github.io/"
+    }
+  });
   const text = await res.text();
   let json;
   try { json = JSON.parse(text); } catch { json = null; }
@@ -26,26 +32,33 @@ async function yt(url) {
 }
 
 async function getUploadsPlaylistIdViaHandle(handle) {
-  // Docs say forHandle can be with or without '@', so try both. :contentReference[oaicite:2]{index=2}
-  const candidates = [handle.replace(/^@/, ""), handle.startsWith("@") ? handle : `@${handle}`];
+  // Try handle with @ first as it's the standard, then try without as fallback
+  const candidates = [
+    handle.startsWith("@") ? handle : `@${handle}`,
+    handle.replace(/^@/, "")
+  ];
 
   for (const h of candidates) {
-    const url =
-      "https://www.googleapis.com/youtube/v3/channels" +
-      `?part=contentDetails,snippet` +
-      `&forHandle=${encodeURIComponent(h)}` +
-      `&key=${encodeURIComponent(API_KEY)}`;
+    try {
+      const url =
+        "https://www.googleapis.com/youtube/v3/channels" +
+        `?part=contentDetails,snippet` +
+        `&forHandle=${encodeURIComponent(h)}` +
+        `&key=${encodeURIComponent(API_KEY)}`;
 
-    const data = await yt(url);
-    const item = data?.items?.[0];
-    const uploads = item?.contentDetails?.relatedPlaylists?.uploads;
+      const data = await yt(url);
+      const item = data?.items?.[0];
+      const uploads = item?.contentDetails?.relatedPlaylists?.uploads;
 
-    if (uploads) {
-      return {
-        uploadsPlaylistId: uploads,
-        channelTitle: item?.snippet?.title || "The Binary Bandish",
-        resolvedBy: `forHandle=${h}`
-      };
+      if (uploads) {
+        return {
+          uploadsPlaylistId: uploads,
+          channelTitle: item?.snippet?.title || "The Binary Bandish",
+          resolvedBy: `forHandle=${h}`
+        };
+      }
+    } catch (e) {
+      console.warn(`[Info] forHandle=${h} failed: ${e.message.split(":")[0]}`);
     }
   }
 
