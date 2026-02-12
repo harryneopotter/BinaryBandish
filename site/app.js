@@ -1,28 +1,33 @@
-
 async function loadVideos() {
-  const grid = document.getElementById("tracksGrid");
+  const grid = document.getElementById('tracksGrid');
+  if (!grid) return;
 
   try {
-    const res = await fetch("./videos.json", { cache: "no-store" });
+    const res = await fetch('./videos.json', { cache: 'no-store' });
     const data = await res.json();
     const videos = data.videos || [];
 
     grid.innerHTML = videos.map(v => `
-      <article class="card">
+      <div class="card">
         <div class="player">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/${v.videoId}"
+            src="https://www.youtube-nocookie.com/embed/${v.videoId}?rel=0"
+            title="${v.title}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
+            loading="lazy"
           ></iframe>
         </div>
-        <h3>${v.title}</h3>
-        <p>${v.description.slice(0, 200)}...</p>
-      </article>
-    `).join("");
+        <div class="card-body">
+          <h3 class="card-title">${v.title}</h3>
+          <p class="card-desc">${v.description.slice(0, 200)}...</p>
+        </div>
+      </div>
+    `).join('');
 
   } catch (e) {
-    grid.innerHTML = "<p>Unable to load videos.</p>";
+    grid.innerHTML = '<p>Unable to load videos.</p>';
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadVideos);
+document.addEventListener('DOMContentLoaded', loadVideos);
