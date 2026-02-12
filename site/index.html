@@ -5,20 +5,87 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>The Binary Bandish</title>
   <meta name="description" content="Raga-based progressive compositions — Indian classical × progressive fusion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
 
+<!-- Sacred geometry background pattern -->
+<div class="sacred-geo" aria-hidden="true">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#991111" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#991111" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <circle cx="600" cy="400" r="380" fill="url(#glow)"/>
+    <!-- Radiating lines from center — yantra meets circuit board -->
+    <g stroke="#991111" stroke-opacity="0.12" stroke-width="0.5" fill="none">
+      <line x1="600" y1="400" x2="600" y2="0"/>
+      <line x1="600" y1="400" x2="600" y2="800"/>
+      <line x1="600" y1="400" x2="0" y2="400"/>
+      <line x1="600" y1="400" x2="1200" y2="400"/>
+      <line x1="600" y1="400" x2="1200" y2="0"/>
+      <line x1="600" y1="400" x2="0" y2="0"/>
+      <line x1="600" y1="400" x2="1200" y2="800"/>
+      <line x1="600" y1="400" x2="0" y2="800"/>
+      <line x1="600" y1="400" x2="900" y2="0"/>
+      <line x1="600" y1="400" x2="300" y2="0"/>
+      <line x1="600" y1="400" x2="900" y2="800"/>
+      <line x1="600" y1="400" x2="300" y2="800"/>
+      <line x1="600" y1="400" x2="1200" y2="200"/>
+      <line x1="600" y1="400" x2="0" y2="200"/>
+      <line x1="600" y1="400" x2="1200" y2="600"/>
+      <line x1="600" y1="400" x2="0" y2="600"/>
+      <!-- Additional radiating lines for density -->
+      <line x1="600" y1="400" x2="150" y2="100"/>
+      <line x1="600" y1="400" x2="1050" y2="100"/>
+      <line x1="600" y1="400" x2="150" y2="700"/>
+      <line x1="600" y1="400" x2="1050" y2="700"/>
+      <line x1="600" y1="400" x2="400" y2="0"/>
+      <line x1="600" y1="400" x2="800" y2="0"/>
+      <line x1="600" y1="400" x2="400" y2="800"/>
+      <line x1="600" y1="400" x2="800" y2="800"/>
+    </g>
+    <!-- Concentric circles — raga cycles -->
+    <g stroke="#991111" stroke-opacity="0.08" stroke-width="0.5" fill="none">
+      <circle cx="600" cy="400" r="60"/>
+      <circle cx="600" cy="400" r="120"/>
+      <circle cx="600" cy="400" r="190"/>
+      <circle cx="600" cy="400" r="270"/>
+      <circle cx="600" cy="400" r="360"/>
+    </g>
+    <!-- Diamond / yantra shapes -->
+    <g stroke="#991111" stroke-opacity="0.06" stroke-width="0.5" fill="none">
+      <polygon points="600,200 800,400 600,600 400,400"/>
+      <polygon points="600,280 720,400 600,520 480,400"/>
+      <polygon points="600,100 900,400 600,700 300,400"/>
+    </g>
+  </svg>
+</div>
+
 <header class="hero">
   <div class="wrap">
-    <div class="badge">Raga × Progressive</div>
-    <h1>The Binary Bandish</h1>
+    <div class="badge">Ancient Raga · Progressive Form</div>
+
+    <!-- Logo-style title with tanpura string accents -->
+    <div class="logo-block">
+      <div class="strings" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <h1>The<br/>Binary<br/>Bandish</h1>
+    </div>
+
     <p class="sub">
       Raga-based progressive compositions — meditative alaap → rhythmic progression → high-energy fusion.
     </p>
 
     <div class="cta-row">
-      <a class="btn" href="https://www.youtube.com/@thebinarybandish" target="_blank" rel="noreferrer">
+      <a class="btn primary" href="https://www.youtube.com/@thebinarybandish" target="_blank" rel="noreferrer">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="currentColor"><path d="M19.6 2.2A2.5 2.5 0 0 0 17.8.4C16.3 0 10 0 10 0S3.7 0 2.2.4A2.5 2.5 0 0 0 .4 2.2C0 3.7 0 7 0 7s0 3.3.4 4.8a2.5 2.5 0 0 0 1.8 1.8C3.7 14 10 14 10 14s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8C20 10.3 20 7 20 7s0-3.3-.4-4.8zM8 10V4l5.2 3L8 10z"/></svg>
         YouTube Channel
       </a>
       <a class="btn ghost" href="#tracks">Listen</a>
@@ -34,25 +101,54 @@
   <section id="tracks" class="section">
     <div class="section-head">
       <h2>Tracks</h2>
+      <div class="section-line" aria-hidden="true"></div>
       <p class="muted">Auto-updated from YouTube every 12 hours.</p>
     </div>
-
     <div id="tracksGrid" class="grid"></div>
   </section>
 
-  <section class="section">
+  <section class="section about-section">
     <div class="section-head">
       <h2>About</h2>
+      <div class="section-line" aria-hidden="true"></div>
     </div>
-    <p class="about">
-      A contemporary fusion project blending Indian classical foundations with progressive textures.
-      Best with headphones. No autoplay. Ever.
-    </p>
+    <div class="about-content">
+      <div class="about-features">
+        <div class="feature">
+          <span class="feature-icon">𝄞</span>
+          <span>Raga-based melodic foundations</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">∞</span>
+          <span>Long-form, progressive compositions</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">⚡</span>
+          <span>Classical discipline × modern intensity</span>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">🎧</span>
+          <span>Best experienced with headphones</span>
+        </div>
+      </div>
+      <p class="about-text">
+        A contemporary music project exploring Indian Classical ragas through structured fusion with Progressive Rock.
+        Each composition begins with the meditative stillness of a traditional alaap and gradually evolves into layered,
+        high-energy arrangements driven by rhythm, harmony, and modern instrumentation.
+      </p>
+      <p class="about-cta">Depth over distraction. No autoplay. Ever.</p>
+    </div>
   </section>
 </main>
 
 <footer class="footer">
-  
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="footer-text">Fan-made with reverence</span>
+      <span class="footer-sep">·</span>
+      <a href="https://www.youtube.com/@thebinarybandish" target="_blank" rel="noreferrer" class="footer-link">@thebinarybandish</a>
+    </div>
+  </div>
 </footer>
 
 <script src="./app.js" defer></script>
